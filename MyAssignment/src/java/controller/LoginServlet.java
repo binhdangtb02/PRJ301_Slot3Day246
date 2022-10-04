@@ -5,6 +5,8 @@
 package controller;
 
 import dal.LoginDAO;
+import dal.StudentDAO;
+import dal.TeacherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.Student;
+import model.Teacher;
 
 /**
  *
@@ -82,10 +86,15 @@ public class LoginServlet extends HttpServlet {
            request.getRequestDispatcher("view/login/login.jsp").forward(request, response);
        }else{
            HttpSession session = request.getSession(true);
-           session.setAttribute("account", a);
            if(a.getStudentID() !=0){
+               StudentDAO stDAO = new StudentDAO();
+               Student s = stDAO.getStudentById(a.getStudentID());
+               session.setAttribute("student", s);
                response.sendRedirect("view/student/studentprofile.jsp");
            }else if(a.getTeacherID() !=0){
+               TeacherDAO teDAO = new TeacherDAO();
+               Teacher  t = teDAO.getTeacherById(a.getStudentID());
+               session.setAttribute("teacher", t);
                response.sendRedirect("view/teacher/teacherprofile.jsp");
            }
        }
