@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
@@ -76,28 +76,29 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String user = request.getParameter("user");
-       String pass= request.getParameter("pass");
-       LoginDAO loginDAO = new LoginDAO();
+        HttpSession session = request.getSession(true);
+        String user = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        LoginDAO loginDAO = new LoginDAO();
         Account a = loginDAO.getAccount(user, pass);
-       if(a == null ){
-           String mess = "Wrong username or password";
-           request.setAttribute("mess", mess);
-           request.getRequestDispatcher("view/login/login.jsp").forward(request, response);
-       }else{
-           HttpSession session = request.getSession(true);
-           if(a.getStudentID() !=0){
-               StudentDAO stDAO = new StudentDAO();
-               Student s = stDAO.getStudentById(a.getStudentID());
-               session.setAttribute("student", s);
-               response.sendRedirect("view/student/studentprofile.jsp");
-           }else if(a.getTeacherID() !=0){
-               TeacherDAO teDAO = new TeacherDAO();
-               Teacher  t = teDAO.getTeacherById(a.getStudentID());
-               session.setAttribute("teacher", t);
-               response.sendRedirect("view/teacher/teacherprofile.jsp");
-           }
-       }
+        if (a == null) {
+            String error = "Wrong username or password";
+            session.setAttribute("error", error);
+            response.sendRedirect("view/login/login.jsp");
+        } else {
+
+            if (a.getStudentID() != 0) {
+                StudentDAO stDAO = new StudentDAO();
+                Student s = stDAO.getStudentById(a.getStudentID());
+                session.setAttribute("student", s);
+                response.sendRedirect("view/student/studentprofile.jsp");
+            } else if (a.getTeacherID() != 0) {
+                TeacherDAO teDAO = new TeacherDAO();
+                Teacher t = teDAO.getTeacherById(a.getStudentID());
+                session.setAttribute("teacher", t);
+                response.sendRedirect("view/teacher/teacherprofile.jsp");
+            }
+        }
     }
 
     /**

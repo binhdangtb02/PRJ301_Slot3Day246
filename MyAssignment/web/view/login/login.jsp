@@ -12,8 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h2 style="color:red">${requestScope.mess}</h2>
-        <form action="login" method="post">
+        <h2 style="color:red">${sessionScope.error}</h2>
+        <form action="../../login" method="post">
             Enter username<input type="text" name="user"/> <br/>
             Enter password<input type="password" name="pass"/><br/>
             <input type="submit" value="submit"/>
