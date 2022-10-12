@@ -4,10 +4,12 @@
  */
 package dal;
 
+import helper.DateTimeHelper;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,10 +31,11 @@ public class StudentDAO extends DBContext {
                     + "  WHERE s.date > ? AND s.date < ? AND a.studentId = ? \n"
                     + "  order by s.date  asc";
             PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            st.setString(1, from);
-            st.setString(2, to);
+            
+            st.setDate(1, DateTimeHelper.getDate(from));
+            st.setDate(2, DateTimeHelper.getDate(to));
             st.setString(3, studentId);
+            ResultSet rs = st.executeQuery();
             while(rs.next()){
                 int groupId = rs.getInt("groupId");
                 int timeSlot = rs.getInt("timeSlot");
@@ -44,12 +47,14 @@ public class StudentDAO extends DBContext {
                 Session s = new Session(sessionid, groupId, timeSlot, date, room, lectureCode, num);
                 Attendence a = new Attendence(s, rs.getString("studentId"), rs.getBoolean("status"));
                 listAttendence.add(a);
-                
             }
             return listAttendence;
         } catch (SQLException ex) {
-
+            System.out.println(ex);
         }
         return null;
+    }
+    public static void main(String[] args) {
+        System.out.println(new StudentDAO().getWeeklyTimetable("HE160114", "2022-10-10" , "2022-10-16").get(0).getSession().getDate().compareTo(Date.valueOf(LocalDate.now())));
     }
 }
