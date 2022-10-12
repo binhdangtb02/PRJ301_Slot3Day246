@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  * @author Dell
  */
 public class DateTimeHelper {
-    public static LocalDate getLocalDate(String date){
+        public static LocalDate getLocalDate(String date){
         DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("yyyy/MM/dd"); 
         return LocalDate.parse(date, formatter);
     }

@@ -52,9 +52,9 @@
                     <c:forEach items="${sqlWeek}" var="day">
                         <c:set value="true" var="check"/>
                         <c:forEach items="${requestScope.weeklyTimetable}" var="attendence">
-                            <c:set value="${attendence.session.date}" var="date"/>
+                            <c:set value="${attendence.session.date}" var="attendenceday"/>
                           
-                        <c:if test="${attendence.session.timeSlot == slot && day.compareTo(date) == 0}">
+                        <c:if test="${attendence.session.timeSlot == slot && day.compareTo(attendenceday) == 0}">
                             <td>
                                 ${attendence.session.room}
                                 <c:set value="false" var="check"/>

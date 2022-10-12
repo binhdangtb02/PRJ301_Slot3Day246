@@ -26,11 +26,11 @@ public class StudentDAO extends DBContext {
         ArrayList<Attendence> listAttendence = new ArrayList<>();
     
         try {
-            String sql = " SELECT *\n"
+            String sql = " SELECT distinct *\n"
                     + "  FROM Attendence a INNER JOIN [Session] s on a.sessionId =  s.sessionid\n"
-                    + "  WHERE s.date > ? AND s.date < ? AND a.studentId = ? \n"
+                    + "  WHERE s.date >= ? AND s.date <= ? AND a.studentId = ? \n"
                     + "  order by s.date  asc";
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);    
             
             st.setDate(1, DateTimeHelper.getDate(from));
             st.setDate(2, DateTimeHelper.getDate(to));
