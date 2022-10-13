@@ -19,8 +19,11 @@
             width: 80%;
             margin: auto;
         }
-        th{
-            width: 16%;
+        .date{
+            text-transform: lowercase;
+        }
+        .date:first-letter {
+            text-transform: capitalize;
         }
     </style>
     <body>
@@ -31,25 +34,29 @@
                 <th>DATE</th>
                 <th>SLOT</th>
                 <th>ROOM</th>
-                <th>GroupId</th>
+                <th>Group</th>
+                <th>Lecture</th>
                 <th>ATTENDENCE STATUS</th>
             </tr>
 
             <c:forEach items="${requestScope.listAttendence}" var="attendence">
                 <tr>
-                    <td>${attendence.session.num}</td>
-                    <td>${attendence.session.date}</td>
+                    <td >${attendence.session.num}</td>
+                    <td class="date">${attendence.session.date.toLocalDate().dayOfWeek} ${attendence.session.date}</td>
                     <td>${attendence.session.timeSlot}</td>
-                    <td>${attendence.session.room}</td>
-                    <td>${attendence.session.groupId}</td>
+                    <td >${attendence.session.room}</td>
+                    <td>${attendence.session.group.subject.subjectCode}</td>
+                    <td>${attendence.session.group.lecture.lectureCode}</td>
                     <td>
                         <c:if test="${attendence.status ==1}">Attended</c:if>
                         <c:if test="${attendence.status==2}">Absent</c:if>
                         <c:if test="${attendence.status==3}">Future</c:if>
                         </td>
                     </tr>
-            </c:forEach>
-
+            </c:forEach>    
+            <tr>
+                <td colspan="5"><h2>Absent: ${requestScope.numberOfAbsent}: ${requestScope.percentageOfAbsent}% so far</h2></td>
+            </tr>
         </table>
     </body>
 </html>

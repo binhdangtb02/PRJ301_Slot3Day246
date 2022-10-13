@@ -18,12 +18,12 @@
         table{
             border-collapse: collapse;
             margin:100px auto;
-          
+
         }
     </style>
     <body>
-     
-      
+
+
         <table border="1px" width="80%">
 
             <tr>
@@ -53,23 +53,26 @@
                         <c:set value="true" var="check"/>
                         <c:forEach items="${requestScope.weeklyTimetable}" var="attendence">
                             <c:set value="${attendence.session.date}" var="attendenceday"/>
-                          
-                        <c:if test="${attendence.session.timeSlot == slot && day.compareTo(attendenceday) == 0}">
-                            <td>
-                                ${attendence.session.room}
-                                <c:set value="false" var="check"/>
-                            </td>
-                        </c:if>
-                       
-                    </c:forEach>
-                             <c:if test="${check}">
+
+                            <c:if test="${attendence.session.timeSlot == slot && day.compareTo(attendenceday) == 0}">
+                                <td>
+                                    ${attendence.session.group.subject.subjectCode} at ${attendence.session.room}
+                                    <c:if test="${attendence.status ==1}">Attended</c:if>
+                                    <c:if test="${attendence.status==2}">Absent</c:if>
+                                    <c:if test="${attendence.status==3}">Future</c:if>
+                                    <c:set value="false" var="check"/>
+                                </td>
+                            </c:if>
+
+                        </c:forEach>
+                        <c:if test="${check}">
                             <td>
                                 -
                             </td>
                         </c:if>
-                </c:forEach>
-            </tr>
-        </c:forEach>
-    </table>
-</body>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+        </table>
+    </body>
 </html>

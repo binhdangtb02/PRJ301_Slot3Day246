@@ -22,7 +22,7 @@ SELECT TOP (1000) [groupId]
     private String groupName;
     private Subject subject;
     private Lecture lecture;
-    private ArrayList<Student> students;
+    private ArrayList<Student> students =  new ArrayList<>();
 
     public Group() {
     }

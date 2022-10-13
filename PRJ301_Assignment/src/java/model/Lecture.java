@@ -21,6 +21,7 @@ public class Lecture {
   FROM [FAP_AttendenceChecking].[dbo].[Lecture]
     */
     private String lectureCode;
+    private String lectureName;
     private Date dob;
     private boolean gender;
     private String email;
@@ -29,12 +30,21 @@ public class Lecture {
     public Lecture() {
     }
 
-    public Lecture(String lectureCode, Date dob, boolean gender, String email, String image) {
+    public Lecture(String lectureCode, Date dob, boolean gender, String email, String image, String lectureName) {
         this.lectureCode = lectureCode;
         this.dob = dob;
         this.gender = gender;
         this.email = email;
         this.image = image;
+        this.lectureName = lectureName;
+    }
+
+    public String getLectureName() {
+        return lectureName;
+    }
+
+    public void setLectureName(String lectureName) {
+        this.lectureName = lectureName;
     }
 
     public String getLectureCode() {

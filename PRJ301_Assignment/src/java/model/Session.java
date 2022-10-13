@@ -13,7 +13,7 @@ import java.sql.Date;
 public class Session {
 
     /*
-    SELECT TOP (1000) [groupId]
+    SELECT TOP (1000) [group]
       ,[timeSlot]
       ,[date]
       ,[room]
@@ -23,7 +23,7 @@ public class Session {
   FROM [FAP_AttendenceChecking].[dbo].[Session]
     */
     private int sessionid;
-    private int groupId;
+    private Group group;
     private int timeSlot;
     private Date date;
     private String room;
@@ -33,9 +33,9 @@ public class Session {
     public Session() {
     }
 
-    public Session(int sessionid, int groupId, int timeSlot, Date date, String room, String lectureCode, int num) {
+    public Session(int sessionid, Group group, int timeSlot, Date date, String room, String lectureCode, int num) {
         this.sessionid = sessionid;
-        this.groupId = groupId;
+        this.group = group;
         this.timeSlot = timeSlot;
         this.date = date;
         this.room = room;
@@ -51,12 +51,12 @@ public class Session {
         this.sessionid = sessionid;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupId(int group) {
-        this.groupId = group;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public int getTimeSlot() {
