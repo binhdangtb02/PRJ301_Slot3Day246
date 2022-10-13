@@ -11,12 +11,12 @@ package model;
 public class Attendence {
     private Session session;
     private String studentId;
-    private boolean status;
+    private int status;
 
     public Attendence() {
     }
 
-    public Attendence(Session session, String studentId, boolean status) {
+    public Attendence(Session session, String studentId, int status) {
         this.session = session;
         this.studentId = studentId;
         this.status = status;
@@ -38,11 +38,11 @@ public class Attendence {
         this.studentId = student;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
     

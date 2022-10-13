@@ -4,9 +4,17 @@
         <servlet-name>StudentTimetableController</servlet-name>
         <servlet-class>controller.StudentTimetableController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentReportController</servlet-name>
+        <servlet-class>controller.StudentReportController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentTimetableController</servlet-name>
         <url-pattern>/student/timetable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentReportController</servlet-name>
+        <url-pattern>/student/report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

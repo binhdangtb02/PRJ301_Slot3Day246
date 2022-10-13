@@ -51,11 +51,11 @@ public class Session {
         this.sessionid = sessionid;
     }
 
-    public int getGroup() {
+    public int getGroupId() {
         return groupId;
     }
 
-    public void setGroup(int group) {
+    public void setGroupId(int group) {
         this.groupId = group;
     }
 
