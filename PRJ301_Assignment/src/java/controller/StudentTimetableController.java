@@ -21,8 +21,10 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import model.Attendence;
+import model.Student;
 
 /**
  *
@@ -69,39 +71,63 @@ public class StudentTimetableController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");
-        String from = request.getParameter("from");
-        String to = request.getParameter("to");
+        String year_raw = request.getParameter("year");
+        String week_raw = request.getParameter("week");
         StudentDAO stDAO = new StudentDAO();
         LocalDate localDate = LocalDate.now();
         DayOfWeek today = localDate.getDayOfWeek();
         LocalDate startDate;
-        if (from == null || to == null) {
+        int year, week;
+        String from, to;
+        if (year_raw == null || week_raw == null) {
             if (today.compareTo(DayOfWeek.MONDAY) >= 0 && today.compareTo(DayOfWeek.SATURDAY) <= 0) {
                 startDate = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
                 from = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toString();
                 to = localDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toString();
+
             } else {
                 startDate = localDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
                 from = localDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).toString();
                 to = localDate.with(TemporalAdjusters.next(DayOfWeek.SUNDAY)).toString();
+
             }
-        }else{
-            startDate = DateTimeHelper.getLocalDate(from);
+            year = localDate.getYear();
+
+        } else {
+            year = Integer.parseInt(year_raw);
+            week = Integer.parseInt(week_raw);
+            Calendar c = Calendar.getInstance();
+            c.setWeekDate(year, week, Calendar.MONDAY);
+                
+            startDate = DateTimeHelper.getLocalDate(c);
+            from = startDate.toString();
+            to = startDate.plusDays(6).toString();
         }
-        int year = localDate.getYear();
-        ArrayList<LocalDate> week  = new ArrayList<>();
+        ArrayList<LocalDate> weeks = new ArrayList<>();
+
+        Integer weeksOfYear = Calendar.getInstance().getActualMaximum(Calendar.WEEK_OF_YEAR);
+        Calendar c = Calendar.getInstance();
+        for (int i = 1; i <= weeksOfYear; i++) {
+            c.setWeekDate(year, i, Calendar.MONDAY);
+            weeks.add(DateTimeHelper.getLocalDate(c));
+        }
+        ArrayList<LocalDate> selectedWeek = new ArrayList<>();
         LocalDate endDate = startDate.plusDays(7);
-        for(LocalDate  i = startDate; i.isBefore(endDate); i =i.plusDays(1)){
-            week.add(i);
+        for (LocalDate i = startDate; i.isBefore(endDate); i = i.plusDays(1)) {
+            selectedWeek.add(i);
         }
-        ArrayList<Date> sqlWeek  = new ArrayList<>();
-     for(LocalDate  i = startDate; i.isBefore(endDate); i =i.plusDays(1)){
+        ArrayList<Date> sqlWeek = new ArrayList<>();
+        for (LocalDate i = startDate; i.isBefore(endDate); i = i.plusDays(1)) {
             sqlWeek.add(DateTimeHelper.getSqlDate(i));
         }
-     
+        Student student = stDAO.getStudentById(id);
         ArrayList<Attendence> weeklyTimetable = stDAO.getWeeklyTimetable(id, from, to);
-        request.setAttribute("week", week);
-       request.setAttribute("sqlWeek", sqlWeek);
+        request.setAttribute("weeksOfYear", weeksOfYear);
+        request.setAttribute("weeks", weeks);
+        request.setAttribute("student", student);
+        request.setAttribute("year", year);
+        request.setAttribute("selectedWeek", selectedWeek);
+        request.setAttribute("sqlWeek", sqlWeek);
         request.setAttribute("weeklyTimetable", weeklyTimetable);
         request.getRequestDispatcher("../view/student/weeklytimetable.jsp").forward(request, response);
     }

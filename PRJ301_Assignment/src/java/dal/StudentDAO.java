@@ -25,7 +25,27 @@ import model.Subject;
  * @author Dell
  */
 public class StudentDAO extends DBContext {
-
+    public Student getStudentById(String studentId){
+        String sql = "SELECT * FROM Student where id = ?";
+        try{
+            PreparedStatement st  = connection.prepareStatement(sql);
+            st.setString(1, studentId);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                Student s = new Student();
+                s.setId(studentId);
+                s.setDob(rs.getDate("dob"));
+                s.setEmail(rs.getString("Email"));
+                s.setGender(rs.getBoolean("gender"));
+                s.setImage(rs.getString("image"));
+                s.setName(rs.getString("name"));
+                return s;
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
     public Group getGroup(int groupId) {
         String sql = "SELECT g.groupId, g.groupName, g.subjectCode, s.id \"studentId\",s.name \"studentName\", s.gender \"studentGender\",\n"
                 + "s.image \"studentImage\", s.email \"studentEmail\", s.dob \"studentDOB\",  l.lectureCode, l.lectureName, l.dob \"lectureDOB\",\n"
@@ -175,5 +195,6 @@ public class StudentDAO extends DBContext {
     public static void main(String[] args) {
         System.out.println(new StudentDAO().getWeeklyTimetable("HE160114", "2022-10-10", "2022-10-16").get(0).getSession().getGroup().getSubject().getSubjectCode());
         System.out.println(new StudentDAO().getGroupByStudentId("HE160110").size());
+        System.out.println(new StudentDAO().getStudentById("HE160110").getId());
     }
 }
