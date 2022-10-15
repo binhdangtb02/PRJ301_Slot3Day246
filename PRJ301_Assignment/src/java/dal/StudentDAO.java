@@ -142,8 +142,38 @@ public class StudentDAO extends DBContext {
         return listAttendence;
     }
 
+    public ArrayList<Group> getGroupByStudentId(String studentId) {
+        ArrayList<Group> groups = new ArrayList<>();
+        String sql = "select distinct ISNULL(g.groupId,-1) \"groupId\", g.groupName, g.subjectCode ,su.subjectName\n"
+                + "FROM Student s\n"
+                + "left join StudentInGroup sg on s.id = sg.studentId \n"
+                + "INNER join [Group] g on g.groupId = sg.groupId\n"
+                + "INNER JOIN [Subject] su on su.subjectCode = g.subjectCode \n"
+                + "where s.id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, studentId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Group g = new Group();
+                g.setGroupId(rs.getInt("groupId"));
+                g.setGroupName(rs.getString("groupName"));
+                g.setGroupId(rs.getInt("groupId"));
+                Subject s = new Subject();
+                s.setSubjectCode(rs.getString("subjectCode"));
+                s.setSubjectName(rs.getString("subjectName"));
+                g.setSubject(s);
+                groups.add(g);
+            }
+            return groups;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         System.out.println(new StudentDAO().getWeeklyTimetable("HE160114", "2022-10-10", "2022-10-16").get(0).getSession().getGroup().getSubject().getSubjectCode());
-        System.out.println(new StudentDAO().getAttendenceReport("HE160110", "2"));
+        System.out.println(new StudentDAO().getGroupByStudentId("HE160110").size());
     }
 }

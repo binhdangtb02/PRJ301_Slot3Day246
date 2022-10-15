@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Attendence;
+import model.Group;
 
 /**
  *
@@ -37,7 +38,7 @@ public class StudentReportController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StudentReportController</title>");            
+            out.println("<title>Servlet StudentReportController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet StudentReportController at " + request.getContextPath() + "</h1>");
@@ -59,19 +60,35 @@ public class StudentReportController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String studentId_raw = request.getParameter("studentid");
-        String groupId_raw = request.getParameter("groupid");
-        StudentDAO stDAO = new StudentDAO();
-        ArrayList<Attendence> listAttendence = stDAO.getAttendenceReport(studentId_raw, groupId_raw);
-        int numberOfAbsent = 0;
-        for(Attendence a : listAttendence){
-           if(a.getStatus() == 2){
-               numberOfAbsent++;
-           }
+        String index_raw = request.getParameter("index");
+        int index;
+        if (index_raw == null) {
+            index = 0;
+        } else {
+            index = Integer.parseInt(index_raw);
         }
-        int percenAbsent = numberOfAbsent / listAttendence.size();
-        request.setAttribute("listAttendence", listAttendence);
-        request.setAttribute("numberOfAbsent", numberOfAbsent);
-        request.setAttribute("percentageOfAbsent", percenAbsent);
+        StudentDAO stDAO = new StudentDAO();
+        ArrayList<Group> listGroup = stDAO.getGroupByStudentId(studentId_raw);
+        int numberOfAbsent = 0;
+        if (listGroup != null) {
+            
+            ArrayList<Attendence> listAttendence = stDAO.getAttendenceReport(studentId_raw, Integer.toString(listGroup.get(index).getGroupId()));
+            for (Attendence a : listAttendence) {
+                if (a.getStatus() == 2) {
+                    numberOfAbsent++;
+                }
+            }
+            int percenAbsent = numberOfAbsent / listAttendence.size();
+            request.setAttribute("studentId", studentId_raw);
+            request.setAttribute("index", index);
+            request.setAttribute("listGroup", listGroup);
+            request.setAttribute("listAttendence", listAttendence);
+            request.setAttribute("numberOfAbsent", numberOfAbsent);
+            request.setAttribute("percentageOfAbsent", percenAbsent);
+        }
+        else{
+            request.setAttribute("error", "This student have not attended any course!!");
+        }
         request.getRequestDispatcher("../view/student/attendencereport.jsp").forward(request, response);
     }
 
