@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Attendence;
 import model.Group;
+import model.Student;
 
 /**
  *
@@ -70,8 +71,8 @@ public class StudentReportController extends HttpServlet {
         StudentDAO stDAO = new StudentDAO();
         ArrayList<Group> listGroup = stDAO.getGroupByStudentId(studentId_raw);
         int numberOfAbsent = 0;
-        if (listGroup != null) {
-            
+        if (listGroup != null && !listGroup.isEmpty()) {
+
             ArrayList<Attendence> listAttendence = stDAO.getAttendenceReport(studentId_raw, Integer.toString(listGroup.get(index).getGroupId()));
             for (Attendence a : listAttendence) {
                 if (a.getStatus() == 2) {
@@ -79,16 +80,18 @@ public class StudentReportController extends HttpServlet {
                 }
             }
             int percenAbsent = numberOfAbsent / listAttendence.size();
+
             request.setAttribute("studentId", studentId_raw);
             request.setAttribute("index", index);
             request.setAttribute("listGroup", listGroup);
             request.setAttribute("listAttendence", listAttendence);
             request.setAttribute("numberOfAbsent", numberOfAbsent);
             request.setAttribute("percentageOfAbsent", percenAbsent);
-        }
-        else{
+        } else {
             request.setAttribute("error", "This student have not attended any course!!");
         }
+        Student student = stDAO.getStudentById(studentId_raw);
+        request.setAttribute("student", student);
         request.getRequestDispatcher("../view/student/attendencereport.jsp").forward(request, response);
     }
 

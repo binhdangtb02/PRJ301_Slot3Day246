@@ -14,10 +14,21 @@
         <title>JSP Page</title>
     </head>
     <style>
-        section{
-
-            width: 90%;
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 85%;
             margin: 100px auto;
+            background-color: hsl(206, 33%, 96%);
+        }
+        .attendence-title{
+            margin-top: 50px;
+        }
+        section{
+            margin-top: 50px;
             display: grid;
             grid-template-columns: auto 1fr;
             gap: 100px;
@@ -51,6 +62,8 @@
         }
     </style>
     <body>
+        <h1>FPT University portal</h1>
+        <h2 class="attendence-title">View attendence for student ${requestScope.student.name}(${requestScope.student.id})</h2>
         <section>
             <div class="course">
                 <ul class="links-container">
@@ -67,17 +80,18 @@
                     </c:forEach>
                 </ul>
             </div>
-            <table border="1px" width="80%">
-                <tr>
-                    <th>NO</th>
-                    <th>DATE</th>
-                    <th>SLOT</th>
-                    <th>ROOM</th>
-                    <th>Group</th>
-                    <th>Lecture</th>
-                    <th>ATTENDENCE STATUS</th>
-                </tr>
-                <c:if test="${requestScope.listAttendence !=null}">
+            <c:if test="${requestScope.listAttendence !=null}">
+                <table border="1px" width="80%">
+                    <tr>
+                        <th>NO</th>
+                        <th>DATE</th>
+                        <th>SLOT</th>
+                        <th>ROOM</th>
+                        <th>Group</th>
+                        <th>Lecture</th>
+                        <th>ATTENDENCE STATUS</th>
+                    </tr>
+
                     <c:forEach items="${requestScope.listAttendence}" var="attendence">
                         <tr>
                             <td >${attendence.session.num}</td>
@@ -96,8 +110,12 @@
                     <tr>
                         <td colspan="5"><h2>Absent: ${requestScope.numberOfAbsent}: ${requestScope.percentageOfAbsent}% so far</h2></td>
                     </tr>
-                </c:if>
-            </table>
+
+                </table>
+            </c:if>
+            <c:if test="${requestScope.listAttendence ==null}">
+                <h2>${requestScope.error}</h2>
+            </c:if>
         </section>
     </body>
 </html>
