@@ -102,13 +102,13 @@
                             <td>${attendence.session.group.lecture.lectureCode}</td>
                             <td>
                                 <c:if test="${attendence.status ==1}">Attended</c:if>
-                                <c:if test="${attendence.status==2}">Absent</c:if>
-                                <c:if test="${attendence.status==3}">Future</c:if>
+                                <c:if test="${attendence.status==0}">Absent</c:if>
+                                <c:if test="${attendence.status==-1}">Future</c:if>
                                 </td>
                             </tr>
                     </c:forEach>    
                     <tr>
-                        <td colspan="5"><h2>Absent: ${requestScope.numberOfAbsent}: ${requestScope.percentageOfAbsent}% so far</h2></td>
+                        <td colspan="5"><h2>Absent ${requestScope.numberOfAbsent}: (${requestScope.percentageOfAbsent})% so far</h2></td>
                     </tr>
 
                 </table>

@@ -86,8 +86,8 @@
                                 <td>
                                     ${attendence.session.group.subject.subjectCode} at ${attendence.session.room}<br/>
                                     <c:if test="${attendence.status ==1}">Attended</c:if>
-                                    <c:if test="${attendence.status==2}">Absent</c:if>
-                                    <c:if test="${attendence.status==3}">Future</c:if>
+                                    <c:if test="${attendence.status==0}">Absent</c:if>
+                                    <c:if test="${attendence.status==-1}">Future</c:if>
                                     <c:set value="false" var="check"/>
                                 </td>
                             </c:if>

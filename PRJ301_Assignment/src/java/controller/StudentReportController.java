@@ -75,11 +75,11 @@ public class StudentReportController extends HttpServlet {
 
             ArrayList<Attendence> listAttendence = stDAO.getAttendenceReport(studentId_raw, Integer.toString(listGroup.get(index).getGroupId()));
             for (Attendence a : listAttendence) {
-                if (a.getStatus() == 2) {
+                if (a.getStatus() == 0) {
                     numberOfAbsent++;
                 }
             }
-            int percenAbsent = numberOfAbsent / listAttendence.size();
+            int percenAbsent = numberOfAbsent * 100 / listAttendence.size();
 
             request.setAttribute("studentId", studentId_raw);
             request.setAttribute("index", index);
