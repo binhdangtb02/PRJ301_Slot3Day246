@@ -99,7 +99,7 @@
                             <td>${attendence.session.timeSlot}</td>
                             <td >${attendence.session.room}</td>
                             <td>${attendence.session.group.subject.subjectCode}</td>
-                            <td>${attendence.session.group.lecture.lectureCode}</td>
+                            <td>${attendence.session.lecture}</td>
                             <td>
                                 <c:if test="${attendence.status ==1}">Attended</c:if>
                                 <c:if test="${attendence.status==0}">Absent</c:if>

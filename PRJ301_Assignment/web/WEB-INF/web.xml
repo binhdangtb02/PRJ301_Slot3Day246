@@ -2,11 +2,15 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>StudentTimetableController</servlet-name>
-        <servlet-class>controller.StudentTimetableController</servlet-class>
+        <servlet-class>controller.student.StudentTimetableController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StudentReportController</servlet-name>
-        <servlet-class>controller.StudentReportController</servlet-class>
+        <servlet-class>controller.student.StudentReportController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TakeAttendence</servlet-name>
+        <servlet-class>controller.teacher.TakeAttendence</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StudentTimetableController</servlet-name>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>StudentReportController</servlet-name>
         <url-pattern>/student/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TakeAttendence</servlet-name>
+        <url-pattern>/teacher/takeatt</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

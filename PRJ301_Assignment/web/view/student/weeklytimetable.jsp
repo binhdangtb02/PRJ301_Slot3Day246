@@ -54,6 +54,7 @@
                                 <c:set var="w" value="${w+1}"/>
                             </c:forEach>
                         </select>
+                    </form>
 
                 </th>
                 <c:set value="${requestScope.selectedWeek}" var="selectedWeek"/>
@@ -61,7 +62,7 @@
                     <th>
                         ${i.dayOfWeek}
                     </th>
-                    </form>
+
                 </c:forEach>
             </tr> 
             <tr>
@@ -104,9 +105,9 @@
         </table>
     </body>
     <script>
-            function submitForm(){
-                var form = document.getElementById("date-form");
-                form.submit();
-            }
+        function submitForm() {
+            var form = document.getElementById("date-form");
+            form.submit();
+        }
     </script>
 </html>

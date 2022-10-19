@@ -112,7 +112,7 @@ public class StudentDAO extends DBContext {
 //                    + "  order by s.date  asc";
 
             String sql = "  SELECT   s.id,g.groupId, ses.timeSlot, ses.[date], ses.room, ses.lectureCode, ses.num, ses.sessionid, ISNULL(a.status,-1) status \n"
-                    + "  FROM Student s LEFT JOIN StudentInGroup sg on s.id = sg.studentId\n"
+                    + "  FROM Student s INNER JOIN StudentInGroup sg on s.id = sg.studentId\n"
                     + "  INNER JOIN [Group] g on g.groupId = sg.groupId\n"
                     + "  INNER JOIN [Session] ses on ses.groupId = g.groupId \n"
                     + "  LEFT JOIN Attendence a on a.sessionId = ses.sessionid\n"
@@ -155,7 +155,8 @@ public class StudentDAO extends DBContext {
                 + "  INNER JOIN [Group] g on g.groupId = sg.groupId\n"
                 + "  INNER JOIN [Session] ses on ses.groupId = g.groupId \n"
                 + "  LEFT JOIN Attendence a on a.sessionId = ses.sessionid\n"
-                + "  where  s.id = ? and g.groupId = ? and (a.studentId = ? OR a.studentId IS NULL)";
+                + "  where  s.id = ? and g.groupId = ? and (a.studentId = ? OR a.studentId IS NULL)"
+                + "  order by ses.[date]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, studentId_raw);
@@ -184,7 +185,7 @@ public class StudentDAO extends DBContext {
         ArrayList<Group> groups = new ArrayList<>();
         String sql = "select distinct ISNULL(g.groupId,-1) \"groupId\", g.groupName, g.subjectCode ,su.subjectName\n"
                 + "FROM Student s\n"
-                + "left join StudentInGroup sg on s.id = sg.studentId \n"
+                + "INNER join StudentInGroup sg on s.id = sg.studentId \n"
                 + "INNER join [Group] g on g.groupId = sg.groupId\n"
                 + "INNER JOIN [Subject] su on su.subjectCode = g.subjectCode \n"
                 + "where s.id = ?";
@@ -212,6 +213,7 @@ public class StudentDAO extends DBContext {
 
     public static void main(String[] args) {
         System.out.println(new StudentDAO().getWeeklyTimetable("HE160114", "2022-10-10", "2022-10-16").get(0).getStatus());
-        System.out.println(new StudentDAO().getAttendenceReport("HE160001", "1"));
+        System.out.println(new StudentDAO().getAttendenceReport("HE160001", "1").get(0).getSession());
+        System.out.println(new StudentDAO().getStudentById("HE160013"));
     }
 }
