@@ -28,7 +28,9 @@ public class Session {
     private Date date;
     private String room;
     private String lectureCode;
+    private Boolean status;
     private int num;
+    
 
     public Session() {
     }
@@ -41,6 +43,22 @@ public class Session {
         this.room = room;
         this.lectureCode = lectureCode;
         this.num = num;
+    }
+
+    public String getLectureCode() {
+        return lectureCode;
+    }
+
+    public void setLectureCode(String lectureCode) {
+        this.lectureCode = lectureCode;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public int getSessionid() {
