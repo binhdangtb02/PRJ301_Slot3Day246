@@ -4,6 +4,7 @@
  */
 package controller.lecture;
 
+import dal.EditDAO;
 import dal.TeacherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Attendence;
 import model.Session;
+import model.Student;
 
 /**
  *
@@ -79,6 +81,26 @@ public class EditAttendence extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        EditDAO editDAO = new EditDAO();
+         String sessionid =  request.getParameter("sessionid");
+         String[] studentId = request.getParameterValues("studentid");
+         ArrayList<Attendence> listAttendence = new ArrayList<>();
+         for (String id : studentId) {
+            Student student = new Student();
+            student.setId(id);
+            Session session = new Session();
+            session.setSessionid(Integer.parseInt(request.getParameter("sessionid")));
+            String status_raw = request.getParameter("attended?id="+id);
+            String description = request.getParameter("description?id="+id);
+            Attendence a = new Attendence();
+            a.setSession(session);
+            a.setStudent(student);
+            a.setStatus(Integer.parseInt(status_raw));
+            a.setDescription(description);
+            listAttendence.add(a);
+        }
+         editDAO.insertAttendence(sessionid, listAttendence);
+         response.sendRedirect("edit?sessionid="+sessionid);
     }
 
     /**

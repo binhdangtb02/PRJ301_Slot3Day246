@@ -223,6 +223,7 @@ public class TeacherDAO extends DBContext {
                 session.setLectureCode(rs.getString("lectureCode"));
                 session.setTimeSlot(rs.getInt("timeSlot"));
                 session.setStatus(rs.getBoolean("status"));
+                session.setSessionid(rs.getInt("sessionid"));
                 Group group = getGroup(rs.getInt("groupId"));
                 session.setGroup(group);
                 return session;

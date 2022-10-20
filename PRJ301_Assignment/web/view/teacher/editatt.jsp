@@ -46,7 +46,6 @@
         }
     </style>
     <body>
-        <h1>Hello World!</h1>
         <section class="section">
             <div class="title">
                 <h1>
@@ -60,7 +59,7 @@
                     <c:if test="${!requestScope.session.status}">Haven't Taken Attedence Before</c:if>
                 </h1>
                 </div>
-                <form>
+                <form action="edit" method="post">
                     <table >
                         <tr>
                             <th>Num</th>
@@ -75,7 +74,7 @@
                         </tr>
                     <c:set var="count" value="1"/>
                     <c:forEach items="${requestScope.listAttendence}" var="attendence">
-
+                        <input type="hidden" name="sessionid" value="${requestScope.session.sessionid}"/>
                         <tr>
                             <td>${count}</td>
                             <td>${attendence.session.group.groupName}</td>
@@ -83,6 +82,7 @@
                             <td>${attendence.student.name}</td>
 
                             <td>
+                                <input type="hidden" value="${attendence.student.id}" name="studentid"/>
                                 <input type="radio" name="attended?id=${attendence.student.id}" value="0" <c:if test="${attendence.status==0}">checked</c:if>/>Absent
                                 </td>
                                 <td>
