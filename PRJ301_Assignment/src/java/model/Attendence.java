@@ -10,15 +10,16 @@ package model;
  */
 public class Attendence {
     private Session session;
-    private String studentId;
+    private Student student;
+    private String description;
     private int status;
 
     public Attendence() {
     }
 
-    public Attendence(Session session, String studentId, int status) {
+    public Attendence(Session session, Student student, int status) {
         this.session = session;
-        this.studentId = studentId;
+        this.student = student;
         this.status = status;
     }
 
@@ -26,16 +27,24 @@ public class Attendence {
         return session;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     public void setSession(Session session) {
         this.session = session;
     }
 
-    public String getStudent() {
-        return studentId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudent(String student) {
-        this.studentId = student;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public int getStatus() {

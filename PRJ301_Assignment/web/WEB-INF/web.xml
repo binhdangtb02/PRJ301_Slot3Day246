@@ -10,7 +10,11 @@
     </servlet>
     <servlet>
         <servlet-name>TakeAttendence</servlet-name>
-        <servlet-class>controller.teacher.TakeAttendence</servlet-class>
+        <servlet-class>controller.lecture.TakeAttendence</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAttendence</servlet-name>
+        <servlet-class>controller.lecture.EditAttendence</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StudentTimetableController</servlet-name>
@@ -22,7 +26,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TakeAttendence</servlet-name>
-        <url-pattern>/teacher/takeatt</url-pattern>
+        <url-pattern>/lecture/takeatt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAttendence</servlet-name>
+        <url-pattern>/lecture/edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

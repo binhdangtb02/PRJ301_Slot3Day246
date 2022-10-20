@@ -4,11 +4,13 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import model.Attendence;
 import model.Group;
 import model.Lecture;
 import model.Session;
@@ -165,8 +167,74 @@ public class TeacherDAO extends DBContext {
         return null;
     }
 
+    public ArrayList<Attendence> getAttendenceBySessionId(String sessionid) {
+        ArrayList<Attendence> listAttendence = new ArrayList<>();
+        String sql = "  SELECT stu.id, stu.name,stu.image, stu.gender,g.groupId, g.groupName, g.lectureCode, g.lectureCode, "
+                + "     s.sessionid, s.room,s.date, s.num,s.timeSlot,\n"
+                + "  s.status \"present\",  ISNULL(a.status, 0 ) status, ISNULL(a.description,'') \"description\"\n"
+                + "  FROM [Session] s \n"
+                + "  INNER JOIN [Group] g on g.groupId = s.groupId\n"
+                + "  INNER JOIN StudentInGroup sg on g.groupId = sg.groupId\n"
+                + "  INNER JOIN Student stu on stu.id = sg.studentId \n"
+                + "  LEFT JOIN Attendence a on s.sessionid = a.sessionId and stu.id = a.studentId\n"
+                + "  where s.sessionid = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, sessionid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Group group = getGroup(rs.getInt("groupId"));
+                int timeSlot = rs.getInt("timeSlot");
+                Date date = rs.getDate("date");
+                String room = rs.getString("room");
+                String lectureCode = rs.getString("lectureCode");
+                int num = rs.getInt("num");
+                int sessionId = rs.getInt("sessionid");
+                Session s = new Session(sessionId, group, timeSlot, date, room, lectureCode, num);
+                Student student = new Student();
+                student.setId(rs.getString("id"));
+                student.setImage(rs.getString("image"));
+                student.setName(rs.getString("name"));
+                Attendence a = new Attendence(s, student, rs.getInt("status"));
+                a.setDescription(rs.getString("description"));
+                listAttendence.add(a);
+            }
+            return listAttendence;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Session getSessionBySesId(String sessionid) {
+        String sql = " SELECT s.groupId, s.timeSlot, s.[date], s.room, s.lectureCode, s.num, s.sessionid, "
+                + " ISNULL(s.status, 0) [status], g.groupName, g.subjectCode, g.lectureCode\n"
+                + "  FROM [Session] s INNER JOIN [Group] g on s.groupId = g.groupId"
+                + "  WHERE s.sessionid=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, sessionid);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Session session = new Session();
+                session.setDate(rs.getDate("date"));
+                session.setRoom(rs.getString("room"));
+                session.setNum(rs.getInt("num"));
+                session.setLectureCode(rs.getString("lectureCode"));
+                session.setTimeSlot(rs.getInt("timeSlot"));
+                session.setStatus(rs.getBoolean("status"));
+                Group group = getGroup(rs.getInt("groupId"));
+                session.setGroup(group);
+                return session;
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
 
-        System.out.println(new TeacherDAO().getSesByGroupIdAndLectureCode("1", "sonnt").get(29).getStatus());
+        System.out.println(new TeacherDAO().getAttendenceBySessionId("1"));
     }
 }

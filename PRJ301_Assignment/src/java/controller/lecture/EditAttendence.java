@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.teacher;
+package controller.lecture;
 
 import dal.TeacherDAO;
 import java.io.IOException;
@@ -12,15 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.Group;
-import model.Lecture;
+import model.Attendence;
 import model.Session;
 
 /**
  *
  * @author Dell
  */
-public class TakeAttendence extends HttpServlet {
+public class EditAttendence extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class TakeAttendence extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TakeAttendence</title>");            
+            out.println("<title>Servlet EditAttendence</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TakeAttendence at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditAttendence at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,19 +59,13 @@ public class TakeAttendence extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String lectureCode = request.getParameter("lectureCode");
+        String sessionid = request.getParameter("sessionid");
         TeacherDAO teDAO = new TeacherDAO();
-        ArrayList<Group> groups = teDAO.getGroupsByLectureCode(lectureCode);
-        Lecture lecture = teDAO.getLectureById(lectureCode);
-        request.setAttribute("lecture", lecture);
-        request.setAttribute("groups", groups);
-        String groupId =  request.getParameter("groupId");
-        request.setAttribute("lectureCode", lectureCode);
-        if(groupId != null){
-            ArrayList<Session> sessions = teDAO.getSesByGroupIdAndLectureCode(groupId, lectureCode);
-            request.setAttribute("sessions", sessions);
-        }
-        request.getRequestDispatcher("../view/teacher/takeatt.jsp").forward(request, response);
+        Session session = teDAO.getSessionBySesId(sessionid);
+        ArrayList<Attendence> listAttendence = teDAO.getAttendenceBySessionId(sessionid);
+        request.setAttribute("listAttendence", listAttendence);
+        request.setAttribute("session", session);
+        request.getRequestDispatcher("../view/teacher/editatt.jsp").forward(request, response);
     }
 
     /**
@@ -86,7 +79,6 @@ public class TakeAttendence extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

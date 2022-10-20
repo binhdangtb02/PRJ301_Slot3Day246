@@ -134,7 +134,9 @@ public class StudentDAO extends DBContext {
                 int num = rs.getInt("num");
                 int sessionid = rs.getInt("sessionid");
                 Session s = new Session(sessionid, group, timeSlot, date, room, lectureCode, num);
-                Attendence a = new Attendence(s, rs.getString("id"), rs.getInt("status"));
+                Student student = new Student();
+                student.setId(rs.getString("ID"));
+                Attendence a = new Attendence(s, student, rs.getInt("status"));
                 listAttendence.add(a);
             }
             return listAttendence;
@@ -172,7 +174,9 @@ public class StudentDAO extends DBContext {
                 int num = rs.getInt("num");
                 int sessionid = rs.getInt("sessionid");
                 Session s = new Session(sessionid, group, timeSlot, date, room, lectureCode, num);
-                Attendence a = new Attendence(s, rs.getString("ID"), rs.getInt("status"));
+                Student student = new Student();
+                student.setId(rs.getString("ID"));
+                Attendence a = new Attendence(s, student, rs.getInt("status"));
                 listAttendence.add(a);
             }
         } catch (SQLException e) {

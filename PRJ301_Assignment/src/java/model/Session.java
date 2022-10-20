@@ -31,6 +31,7 @@ public class Session {
     private Boolean status;
     private int num;
     
+    
 
     public Session() {
     }
