@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.Group;
 import model.Lecture;
 import model.Session;
@@ -62,7 +63,7 @@ public class TakeAttendence extends HttpServlet {
             throws ServletException, IOException {
         String lectureCode = request.getParameter("lectureCode");
         TeacherDAO teDAO = new TeacherDAO();
-        ArrayList<Group> groups = teDAO.getGroupsByLectureCode(lectureCode);
+        HashMap<Group, Integer> groups = teDAO.getGroupsByLectureCode(lectureCode);
         Lecture lecture = teDAO.getLectureById(lectureCode);
         request.setAttribute("lecture", lecture);
         request.setAttribute("groups", groups);

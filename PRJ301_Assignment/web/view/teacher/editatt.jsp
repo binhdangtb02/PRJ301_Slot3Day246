@@ -4,6 +4,7 @@
     Author     : Dell
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -51,12 +52,13 @@
                 <h1>
                     <c:if test="${requestScope.session.status}">Edit Attendence </c:if> 
                     <c:if test="${!requestScope.session.status}">Take Attendence </c:if> 
-                    for group ${requestScope.session.group.groupName} - ${requestScope.session.group.subject.subjectCode}
+                    for group ${requestScope.session.group.groupName} - ${requestScope.session.group.subject.subjectCode} 
+                    (Slot: ${requestScope.session.timeSlot} - Day: <fmt:formatDate value="${requestScope.session.date}" pattern="dd/MM/yyyy"/>)
                 </h1>
                 <br/>
                 <h1>Status: 
-                    <c:if test="${requestScope.session.status}">Have Taken Attedence Before</c:if>
-                    <c:if test="${!requestScope.session.status}">Haven't Taken Attedence Before</c:if>
+                    <c:if test="${requestScope.session.status}">Have Been Taken Attedence Before</c:if>
+                    <c:if test="${!requestScope.session.status}">Haven't Been Taken Attedence Before</c:if>
                 </h1>
                 </div>
                 <form action="edit" method="post">

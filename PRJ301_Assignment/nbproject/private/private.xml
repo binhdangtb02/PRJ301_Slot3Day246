@@ -5,22 +5,25 @@
         <group>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/student/StudentTimetableController.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/student/attendencereport.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/lecture/EditAttendence.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Session.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Group.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/student/weeklytimetable.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/EditDAO.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Student.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Attendence.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/teacher/editatt.jsp</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/TeacherDAO.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/student/StudentReportController.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/teacher/takeatt.jsp</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/helper/DateTimeHelper.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Subject.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/lecture/TakeAttendence.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Lecture.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/StudentDAO.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/index.html</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/teacher/TakeAttendence.java</file>
         </group>
     </open-files>
 </project-private>

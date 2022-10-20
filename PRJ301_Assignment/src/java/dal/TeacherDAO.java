@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import model.Attendence;
 import model.Group;
 import model.Lecture;
@@ -103,7 +105,7 @@ public class TeacherDAO extends DBContext {
         ArrayList<Session> sessions = new ArrayList<>();
         String sql = "SELECT g.groupId, g.groupName, g.subjectCode, g.lectureCode,s.sessionid ,s.timeSlot, s.date, s.room, s.num, ISNULL(s.[status],0) [status]\n"
                 + "FROM [Group] g INNER JOIN [Session] s on g.groupId =  s.groupId\n"
-                + "  WHERE g.groupId = ? and g.lectureCode =? \n"
+                + "  WHERE g.groupId = ? and s.lectureCode =? \n"
                 + "	order by  date";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -130,14 +132,18 @@ public class TeacherDAO extends DBContext {
         return null;
     }
 
-    public ArrayList<Group> getGroupsByLectureCode(String lectureCode) {
-        ArrayList<Group> groups = new ArrayList<>();
-        String sql = "SELECT l.lectureCode, l.lectureName, l.gender, l.dob, \n"
-                + " l.[image], g.groupId, g.groupName, su.subjectCode, su.subjectName,su.numberOfSlots"
-                + " FROM Lecture l \n"
-                + " INNER JOIN [Group] g  on  g.lectureCode = l.lectureCode\n"
-                + " INNER JOIN [Subject] su on g.subjectCode =  su.subjectCode"
-                + " WHERE l.lectureCode = ?";
+    public LinkedHashMap<Group, Integer> getGroupsByLectureCode(String lectureCode) {
+        LinkedHashMap<Group, Integer> groups = new LinkedHashMap<>();
+        String sql = "SELECT  g.groupId,count(*) \"Count\", g.groupName, l.lectureCode, l.lectureName, l.gender, l.dob, \n"
+                + "                 l.[image], su.subjectCode, su.subjectName,su.numberOfSlots\n"
+                + "                 FROM Lecture l \n"
+                + "				 INNER JOIN [Session] ses on ses.lectureCode =  l.lectureCode\n"
+                + "                 INNER JOIN [Group] g on g.groupId = ses.groupId\n"
+                + "				 INNER JOIN [Subject] su on  su.subjectCode = g.subjectCode\n"
+                + "                WHERE ses.lectureCode = ?\n"
+                + "				group by g.groupId, g.groupName, l.lectureCode, l.lectureName, l.gender, l.dob, \n"
+                + "                 l.[image], su.subjectCode, su.subjectName,su.numberOfSlots"
+                + " order by [groupName] ";
         try {
             PreparedStatement st = connection.prepareCall(sql);
             st.setString(1, lectureCode);
@@ -158,7 +164,7 @@ public class TeacherDAO extends DBContext {
                 group.setSubject(subject);
                 group.setGroupId(rs.getInt("groupId"));
                 group.setGroupName(rs.getString("groupName"));
-                groups.add(group);
+                groups.put(group, rs.getInt("count"));
             }
             return groups;
         } catch (SQLException e) {
@@ -237,5 +243,6 @@ public class TeacherDAO extends DBContext {
     public static void main(String[] args) {
 
         System.out.println(new TeacherDAO().getAttendenceBySessionId("1"));
+        System.out.println(new TeacherDAO().getGroupsByLectureCode("sonnt"));
     }
 }

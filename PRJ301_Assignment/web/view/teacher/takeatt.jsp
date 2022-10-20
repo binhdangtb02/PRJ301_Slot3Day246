@@ -50,13 +50,14 @@
         }
     </style>
     <body>
+       
         <h1 class="main-title">Take Attendence for students</h1>
         <h1>Lecturer: ${requestScope.lecture.lectureName}</h1>
         <section class="section">
             <div>
                 <ul class="links-container">
                     <c:forEach items="${requestScope.groups}" var="group">
-                        <li class="link"><a href="takeatt?lectureCode=${requestScope.lectureCode}&groupId=${group.groupId}">${group.groupName} -  ${group.subject.subjectName}</a></li>
+                        <li class="link"><a href="takeatt?lectureCode=${requestScope.lectureCode}&groupId=${group.key.groupId}">${group.key.groupName} -  ${group.key.subject.subjectName}(${group.value})</a></li>
                         </c:forEach>
                 </ul>
             </div>
@@ -74,8 +75,6 @@
                                     <a href="edit?sessionid=${session.sessionid}">Edit Attendence</a>
                                 </c:if>
                                 <c:if test="${!session.status}">
-                                    
-                                    
                                     <a href="edit?sessionid=${session.sessionid}">Take Attendence</a>
                                     <span class="breakpoint">|</span>
                                     Edit Attendence
