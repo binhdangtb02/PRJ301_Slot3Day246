@@ -48,6 +48,31 @@ public class StudentDAO extends DBContext {
         return null;
     }
 
+    public ArrayList<Student> getStudentByGroupId(String groupId) {
+        ArrayList<Student> listStudent = new ArrayList<>();
+        String sql_select_student = "SELECT * \n"
+                + "FROM [Group] g\n"
+                + "INNER JOIN StudentInGroup sig on g.groupId = sig.groupId\n"
+                + "INNER JOIN Student s on s.id = sig.studentId\n"
+                + "where g.groupId = ?";
+        try {
+            PreparedStatement st_select_student = connection.prepareStatement(sql_select_student);
+            st_select_student.setString(1, groupId);
+            ResultSet rs = st_select_student.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                s.setId(rs.getString("id"));
+                s.setEmail(rs.getString("email"));
+                s.setName(rs.getString("name"));
+                listStudent.add(s);
+            }
+            return listStudent;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public Group getGroup(int groupId) {
         String sql = "SELECT g.groupId, g.groupName, g.subjectCode, s.id \"studentId\",s.name \"studentName\", s.gender \"studentGender\",\n"
                 + "s.image \"studentImage\", s.email \"studentEmail\", s.dob \"studentDOB\",  l.lectureCode, l.lectureName, l.dob \"lectureDOB\",\n"

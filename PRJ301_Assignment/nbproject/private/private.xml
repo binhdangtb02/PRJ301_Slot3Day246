@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/teacher/report.jsp</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/student/StudentTimetableController.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/student/attendencereport.jsp</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/lecture/EditAttendence.java</file>
@@ -11,6 +12,7 @@
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/student/weeklytimetable.jsp</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/EditDAO.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Student.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/LectureReportDAO.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/model/Attendence.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/DBContext.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/teacher/editatt.jsp</file>

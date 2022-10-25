@@ -16,6 +16,10 @@
         <servlet-name>EditAttendence</servlet-name>
         <servlet-class>controller.lecture.EditAttendence</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportController</servlet-name>
+        <servlet-class>controller.lecture.ReportController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentTimetableController</servlet-name>
         <url-pattern>/student/timetable</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>EditAttendence</servlet-name>
         <url-pattern>/lecture/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportController</servlet-name>
+        <url-pattern>/lecture/report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
