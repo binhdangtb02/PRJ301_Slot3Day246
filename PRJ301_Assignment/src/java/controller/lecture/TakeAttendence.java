@@ -4,6 +4,8 @@
  */
 package controller.lecture;
 
+import dal.GroupDAO;
+import dal.SessionDAO;
 import dal.TeacherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -63,14 +65,16 @@ public class TakeAttendence extends HttpServlet {
             throws ServletException, IOException {
         String lectureCode = request.getParameter("lectureCode");
         TeacherDAO teDAO = new TeacherDAO();
-        HashMap<Group, Integer> groups = teDAO.getGroupsByLectureCode(lectureCode);
+        GroupDAO grDAO = new GroupDAO();
+        SessionDAO sesDAO = new SessionDAO();
+        HashMap<Group, Integer> groups = grDAO.getGroupsByLectureCode(lectureCode);
         Lecture lecture = teDAO.getLectureById(lectureCode);
         request.setAttribute("lecture", lecture);
         request.setAttribute("groups", groups);
         String groupId =  request.getParameter("groupId");
         request.setAttribute("lectureCode", lectureCode);
         if(groupId != null){
-            ArrayList<Session> sessions = teDAO.getSesByGroupIdAndLectureCode(groupId, lectureCode);
+            ArrayList<Session> sessions = sesDAO.getSesByGroupIdAndLectureCode(groupId, lectureCode);
             request.setAttribute("sessions", sessions);
         }
         request.getRequestDispatcher("../view/teacher/takeatt.jsp").forward(request, response);

@@ -4,7 +4,10 @@
  */
 package controller.lecture;
 
-import dal.LectureReportDAO;
+import dal.AttendenceDAO;
+import dal.GroupDAO;
+
+import dal.SessionDAO;
 import dal.StudentDAO;
 import dal.TeacherDAO;
 import java.io.IOException;
@@ -65,16 +68,18 @@ public class ReportController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String lectureCode = request.getParameter("lectureCode");
-        LectureReportDAO lectureReportDAO =  new LectureReportDAO();
+        GroupDAO grDAO = new GroupDAO();
+        SessionDAO sesDAO = new SessionDAO();
+        AttendenceDAO  attDAO =  new AttendenceDAO();
         TeacherDAO teDAO =  new TeacherDAO();
-        ArrayList<Group> groups =  lectureReportDAO.getGroupsBySupervisor(lectureCode);
+        ArrayList<Group> groups =  grDAO.getGroupsBySupervisor(lectureCode);
         Lecture lecture = teDAO.getLectureById(lectureCode);
         request.setAttribute("lecture", lecture);
         request.setAttribute("groups", groups);
         String groupId = request.getParameter("groupId");
         if(groupId != null && !groupId.isEmpty()){
-            ArrayList<Session>  listSession = lectureReportDAO.getSessionByGroupId(groupId);
-            ArrayList<Attendence> listAttendence =  lectureReportDAO.getAttendenceByGroupId(groupId);
+            ArrayList<Session>  listSession = sesDAO.getSessionByGroupId(groupId);
+            ArrayList<Attendence> listAttendence =  attDAO.getAttendenceByGroupId(groupId);
             StudentDAO stDAO =  new StudentDAO();
             ArrayList<Student> listStudent = stDAO.getStudentByGroupId(groupId);
             request.setAttribute("listStudent", listStudent);

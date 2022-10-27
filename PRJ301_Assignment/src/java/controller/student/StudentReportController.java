@@ -4,6 +4,8 @@
  */
 package controller.student;
 
+import dal.AttendenceDAO;
+import dal.GroupDAO;
 import dal.StudentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -69,11 +71,13 @@ public class StudentReportController extends HttpServlet {
             index = Integer.parseInt(index_raw);
         }
         StudentDAO stDAO = new StudentDAO();
-        ArrayList<Group> listGroup = stDAO.getGroupByStudentId(studentId_raw);
+        GroupDAO grDAO = new GroupDAO();
+        AttendenceDAO attDAO = new AttendenceDAO();
+        ArrayList<Group> listGroup = grDAO.getGroupByStudentId(studentId_raw);
         int numberOfAbsent = 0;
         if (listGroup != null && !listGroup.isEmpty()) {
 
-            ArrayList<Attendence> listAttendence = stDAO.getAttendenceReport(studentId_raw, Integer.toString(listGroup.get(index).getGroupId()));
+            ArrayList<Attendence> listAttendence = attDAO.getAttendenceReport(studentId_raw, Integer.toString(listGroup.get(index).getGroupId()));
             for (Attendence a : listAttendence) {
                 if (a.getStatus() == 0) {
                     numberOfAbsent++;

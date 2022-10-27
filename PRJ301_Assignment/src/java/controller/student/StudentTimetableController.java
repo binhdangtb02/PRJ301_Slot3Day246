@@ -4,6 +4,7 @@
  */
 package controller.student;
 
+import dal.AttendenceDAO;
 import dal.StudentDAO;
 import helper.DateTimeHelper;
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class StudentTimetableController extends HttpServlet {
         String year_raw = request.getParameter("year");
         String week_raw = request.getParameter("week");
         StudentDAO stDAO = new StudentDAO();
+        AttendenceDAO attDAO = new AttendenceDAO();
         LocalDate localDate = LocalDate.now();
         DayOfWeek today = localDate.getDayOfWeek();
         LocalDate startDate;
@@ -121,7 +123,7 @@ public class StudentTimetableController extends HttpServlet {
             sqlWeek.add(DateTimeHelper.getSqlDate(i));
         }
         Student student = stDAO.getStudentById(id);
-        ArrayList<Attendence> weeklyTimetable = stDAO.getWeeklyTimetable(id, from, to);
+        ArrayList<Attendence> weeklyTimetable = attDAO.getWeeklyTimetable(id, from, to);
         request.setAttribute("weeksOfYear", weeksOfYear);
         request.setAttribute("weeks", weeks);
         request.setAttribute("student", student);

@@ -4,7 +4,9 @@
  */
 package controller.lecture;
 
-import dal.EditDAO;
+
+import dal.AttendenceDAO;
+import dal.SessionDAO;
 import dal.TeacherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -63,8 +65,10 @@ public class EditAttendence extends HttpServlet {
             throws ServletException, IOException {
         String sessionid = request.getParameter("sessionid");
         TeacherDAO teDAO = new TeacherDAO();
-        Session session = teDAO.getSessionBySesId(sessionid);
-        ArrayList<Attendence> listAttendence = teDAO.getAttendenceBySessionId(sessionid);
+        SessionDAO sesDAO = new  SessionDAO();
+        AttendenceDAO attDAO = new AttendenceDAO();
+        Session session = sesDAO.getSessionBySesId(sessionid);
+        ArrayList<Attendence> listAttendence = attDAO.getAttendenceBySessionId(sessionid);
         request.setAttribute("listAttendence", listAttendence);
         request.setAttribute("session", session);
         request.getRequestDispatcher("../view/teacher/editatt.jsp").forward(request, response);
@@ -81,7 +85,7 @@ public class EditAttendence extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        EditDAO editDAO = new EditDAO();
+        AttendenceDAO  attDAO = new AttendenceDAO();
          String sessionid =  request.getParameter("sessionid");
          String[] studentId = request.getParameterValues("studentid");
          ArrayList<Attendence> listAttendence = new ArrayList<>();
@@ -99,7 +103,7 @@ public class EditAttendence extends HttpServlet {
             a.setDescription(description);
             listAttendence.add(a);
         }
-         editDAO.insertAttendence(sessionid, listAttendence);
+         attDAO.insertAttendence(sessionid, listAttendence);
          response.sendRedirect("edit?sessionid="+sessionid);
     }
 
