@@ -26,6 +26,9 @@
 
 
         }
+        td{
+            padding: 4px 6px;
+        }
     </style>
     <body>
         <h1>FPT University portal</h1>
@@ -86,9 +89,9 @@
                             <c:if test="${attendence.session.timeSlot == slot && day.compareTo(attendenceday) == 0}">
                                 <td>
                                     ${attendence.session.group.subject.subjectCode} at ${attendence.session.room}<br/>
-                                    <c:if test="${attendence.status ==1}">Attended</c:if>
-                                    <c:if test="${attendence.status==0}">Absent</c:if>
-                                    <c:if test="${attendence.status==-1}">Future</c:if>
+                                    <c:if test="${attendence.status ==1}"><span style="color:green;">Attended</span></c:if>
+                                    <c:if test="${attendence.status==0}"><span style="color:red;">Absent</span></c:if>
+                                    <c:if test="${attendence.status==-1}"><span style="color:black;">Future</span></c:if>
                                     <c:set value="false" var="check"/>
                                 </td>
                             </c:if>

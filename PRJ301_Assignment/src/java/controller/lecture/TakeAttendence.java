@@ -77,7 +77,7 @@ public class TakeAttendence extends HttpServlet {
             ArrayList<Session> sessions = sesDAO.getSesByGroupIdAndLectureCode(groupId, lectureCode);
             request.setAttribute("sessions", sessions);
         }
-        request.getRequestDispatcher("../view/teacher/takeatt.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/lecture/takeatt.jsp").forward(request, response);
     }
 
     /**

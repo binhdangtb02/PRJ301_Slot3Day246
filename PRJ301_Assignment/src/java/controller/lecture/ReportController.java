@@ -82,11 +82,12 @@ public class ReportController extends HttpServlet {
             ArrayList<Attendence> listAttendence =  attDAO.getAttendenceByGroupId(groupId);
             StudentDAO stDAO =  new StudentDAO();
             ArrayList<Student> listStudent = stDAO.getStudentByGroupId(groupId);
+            request.setAttribute("groupId", Integer.parseInt(groupId));
             request.setAttribute("listStudent", listStudent);
             request.setAttribute("listAttendence", listAttendence);
             request.setAttribute("listSession", listSession);
         }
-        request.getRequestDispatcher("../view/teacher/report.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/lecture/report.jsp").forward(request, response);
     }
 
     /**

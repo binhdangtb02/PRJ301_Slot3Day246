@@ -81,6 +81,7 @@ public class StudentTimetableController extends HttpServlet {
         LocalDate startDate;
         int year, week;
         String from, to;
+        // if don't have from and to date, select this week
         if (year_raw == null || week_raw == null) {
             if (today.compareTo(DayOfWeek.MONDAY) >= 0 && today.compareTo(DayOfWeek.SATURDAY) <= 0) {
                 startDate = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
@@ -105,19 +106,23 @@ public class StudentTimetableController extends HttpServlet {
             from = startDate.toString();
             to = startDate.plusDays(6).toString();
         }
+        
+        //
+        // get number of weeks in a year
         ArrayList<LocalDate> weeks = new ArrayList<>();
-
         Integer weeksOfYear = Calendar.getInstance().getActualMaximum(Calendar.WEEK_OF_YEAR);
         Calendar c = Calendar.getInstance();
         for (int i = 1; i <= weeksOfYear; i++) {
             c.setWeekDate(year, i, Calendar.MONDAY);
             weeks.add(DateTimeHelper.getLocalDate(c));
         }
+        // caculate selected week
         ArrayList<LocalDate> selectedWeek = new ArrayList<>();
         LocalDate endDate = startDate.plusDays(7);
         for (LocalDate i = startDate; i.isBefore(endDate); i = i.plusDays(1)) {
             selectedWeek.add(i);
         }
+        // convert selected week to sql date
         ArrayList<Date> sqlWeek = new ArrayList<>();
         for (LocalDate i = startDate; i.isBefore(endDate); i = i.plusDays(1)) {
             sqlWeek.add(DateTimeHelper.getSqlDate(i));

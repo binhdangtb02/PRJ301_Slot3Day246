@@ -60,6 +60,9 @@
         .date:first-letter {
             text-transform: capitalize;
         }
+        td{
+            padding: 4px 6px;
+        }
     </style>
     <body>
         <h1>FPT University portal</h1>

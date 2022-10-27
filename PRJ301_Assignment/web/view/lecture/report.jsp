@@ -49,6 +49,12 @@
         .head-table{
             width: 100px;
         }
+        td{
+            padding: 3px 5px;
+        }
+        .active{
+            color:black;
+        }
     </style>
     <body>
         <section class="section">
@@ -60,7 +66,13 @@
                 <div>
                     <ul class="links-container">
                         <c:forEach items="${requestScope.groups}" var="group">
-                            <li class="link"><a href="report?groupId=${group.groupId}&&lectureCode=${requestScope.lecture.lectureCode}">${group.groupName} -  ${group.subject.subjectName}(${group.subject.subjectCode})</a></li>
+                            <li class="link">
+                                <a 
+                                    <c:if test="${group.groupId == requestScope.groupId}">class="active"</c:if>
+                                    href="report?groupId=${group.groupId}&&lectureCode=${requestScope.lecture.lectureCode}">
+                                    ${group.groupName} -  ${group.subject.subjectName}(${group.subject.subjectCode})
+                                </a>
+                            </li>
                             </c:forEach>
                     </ul>
                 </div>
@@ -86,10 +98,10 @@
                     
                     <c:if test="${attendence.session.num != 30}">
                         <c:if test="${attendence.status==1}">
-                            <td>V</td>
+                            <td style="color:green;">V</td>
                         </c:if>
                         <c:if test="${attendence.status==0 && attendence.session.status == true}">
-                            <td>X</td>
+                            <td style="color:red;">X</td>
                              <c:set var="count" value="${count+1}"/>
                         </c:if>
                         <c:if test="${attendence.status==0 && attendence.session.status == false}">
@@ -99,10 +111,10 @@
 
                     <c:if test="${attendence.session.num == size}">
                         <c:if test="${attendence.status==1}">
-                            <td>V</td>
+                            <td style="color:green;">V</td>
                         </c:if>
                         <c:if test="${attendence.status==0 && attendence.session.status == true}">
-                            <td>X</td>
+                             <td style="color:red;">X</td>
                             <c:set var="count" value="${count+1}"/>
                         </c:if>
                         <c:if test="${attendence.status==0 && attendence.session.status == false}">

@@ -71,7 +71,7 @@ public class EditAttendence extends HttpServlet {
         ArrayList<Attendence> listAttendence = attDAO.getAttendenceBySessionId(sessionid);
         request.setAttribute("listAttendence", listAttendence);
         request.setAttribute("session", session);
-        request.getRequestDispatcher("../view/teacher/editatt.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/lecture/editatt.jsp").forward(request, response);
     }
 
     /**
