@@ -4,21 +4,18 @@
  */
 package controller.auth;
 
-import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
 
 /**
  *
  * @author Dell
  */
-public class LoginController extends HttpServlet {
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +34,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
+            out.println("<title>Servlet LogoutController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LogoutController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,6 +55,9 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getSession().setAttribute("account", null);
+        String error = "Logout Successfully";
+        request.setAttribute("error", error);
         request.getRequestDispatcher("../view/home/login.jsp").forward(request, response);
     }
 
@@ -72,27 +72,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        AccountDAO accountDAO = new AccountDAO();
-        Account account = accountDAO.getAccount(user, pass);
-        if(account != null){
-            HttpSession session = request.getSession();
-            session.setAttribute("account", account);
-            if(account.getStudent() != null){
-                request.getRequestDispatcher("../view/home/student.jsp").forward(request, response);
-            }
-            else{
-               request.getRequestDispatcher("../view/home/lecture.jsp").forward(request, response);
-            }
-        }
-        else{
-            String error = "Incorrect username or password";
-            request.setAttribute("error", error);
-            request.setAttribute("user", user);
-            request.setAttribute("pass", pass);
-            request.getRequestDispatcher("../view/home/login.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

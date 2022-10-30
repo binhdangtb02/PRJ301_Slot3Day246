@@ -12,6 +12,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <section class="section">
+            <jsp:include page="header.jsp"/>
+            <h2>
+                View Profile of student:  ${sessionScope.account.lecture.lectureName}
+            </h2>
+            <ul>
+                <li>
+                    <a href="../student/timetable?studentid=${sessionScope.account.lecture.lectureCode}">View weekly timetable</a>
+                </li>
+                <li>
+                    <a href="../student/report?studentid=${sessionScope.account.lecture.lectureCode}">View attendence report</a>
+                </li>
+            </ul>
+        </section>
     </body>
 </html>

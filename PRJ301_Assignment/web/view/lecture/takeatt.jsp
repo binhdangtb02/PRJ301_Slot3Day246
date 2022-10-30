@@ -48,9 +48,16 @@
         .breakpoint{
             margin: 0px 10px;
         }
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     <body>
-       
+        <div class="header">
+            <h1>FPT University Academic Portal</h1>
+            <a href="../auth/logout">log out</a>
+        </div>
         <h1 class="main-title">Take Attendence for students</h1>
         <h1>Lecturer: ${requestScope.lecture.lectureName}</h1>
         <section class="section">

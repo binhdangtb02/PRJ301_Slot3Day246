@@ -40,38 +40,38 @@ public class AccountDAO extends DBContext {
                     account = new Account();
                     account.setUsername(username);
                     account.setPassword(password);
-                    int sid, lid;
-                    sid = rs_select_account.getInt("sid");
-                    if (sid != -1) {
+                    String sid, lid;
+                    sid = rs_select_account.getString("sid");
+                    if (!sid.equals("-1")) {
                         StudentDAO studentDAO = new StudentDAO();
-                        Student student = studentDAO.getStudentById(Integer.toString(sid));
+                        Student student = studentDAO.getStudentById(sid);
                         account.setStudent(student);
                     }
-                    lid = rs_select_account.getInt("lid");
-                    if (lid != -1) {
+                    lid = rs_select_account.getString("lid");
+                    if (!lid.equals("-1")) {
                         TeacherDAO teacherDAO = new TeacherDAO();
-                        Lecture lecture = teacherDAO.getLectureById(Integer.toString(lid));
+                        Lecture lecture = teacherDAO.getLectureById(lid);
                         account.setLecture(lecture);
                     }
-//                } else {
-//                    int rid = rs_select_account.getInt("rid");
-//                    if (rid != -1) {
-//                        if (rid != currentRole.getId()) {
-//                            currentRole = new Role();
-//                            currentRole.setId(rs_select_account.getInt("rid"));
-//                            currentRole.setRoleName(rs_select_account.getString("rname"));
-//                            account.getRoles().add(currentRole);
-//                        }
-//                        int fid = rs_select_account.getInt("fid");
-//                        if (fid != -1) {
-//                            Feature feature = new Feature();
-//                            feature.setId(rs_select_account.getInt("fid"));
-//                            feature.setFname(rs_select_account.getString("fname"));
-//                            feature.setFurl(rs_select_account.getString("furl"));
-//                            currentRole.getFeatures().add(feature);
-//                        }
-//                    }
                 }
+                int rid = rs_select_account.getInt("rid");
+                if (rid != -1) {
+                    if (rid != currentRole.getId()) {
+                        currentRole = new Role();
+                        currentRole.setId(rs_select_account.getInt("rid"));
+                        currentRole.setRoleName(rs_select_account.getString("roleName"));
+                        account.getRoles().add(currentRole);
+                    }
+                }
+                int fid = rs_select_account.getInt("fid");
+                if (fid != -1) {
+                    Feature feature = new Feature();
+                    feature.setId(rs_select_account.getInt("fid"));
+                    feature.setFname(rs_select_account.getString("fname"));
+                    feature.setFurl(rs_select_account.getString("furl"));
+                    currentRole.getFeatures().add(feature);
+                }
+
             }
             return account;
         } catch (SQLException e) {
@@ -79,8 +79,20 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
+
     public static void main(String[] args) {
         AccountDAO accountDAO = new AccountDAO();
-        System.out.println(accountDAO.getAccount("he160001", "2"));
+        Account account = accountDAO.getAccount("he160001", "2");
+        for (Role role : account.getRoles()) {
+            for (Feature feature : role.getFeatures()) {
+                System.out.println(feature.getFurl());
+            }
+        }
+        Account account2 = accountDAO.getAccount("sonnt", "1");
+        for (Role role : account2.getRoles()) {
+            for (Feature feature : role.getFeatures()) {
+                System.out.println(feature.getFurl());
+            }
+        }
     }
 }

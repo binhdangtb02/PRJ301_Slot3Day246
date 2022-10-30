@@ -55,9 +55,17 @@
         .active{
             color:black;
         }
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     <body>
         <section class="section">
+            <div class="header">
+                <h1>FPT University Academic Portal</h1>
+                <a href="../auth/logout">log out</a>
+            </div>
             <div class="title">
                 <h1>Attendence report for lecture</h1>
                 <h1>Lecturer: ${requestScope.lecture.lectureName}</h1>
@@ -73,12 +81,12 @@
                                     ${group.groupName} -  ${group.subject.subjectName}(${group.subject.subjectCode})
                                 </a>
                             </li>
-                            </c:forEach>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
         </section>
-                <c:set var="size" value="${requestScope.listSession.size()}"/>
+        <c:set var="size" value="${requestScope.listSession.size()}"/>
         <c:if test="${requestScope.listSession != null}">
             <table border="1px" class="report-table">
                 <tr>
@@ -86,40 +94,40 @@
                         <c:forEach items="${requestScope.listSession}" var="session">
                         <th class="head-table"><fmt:formatDate pattern="dd/MM/yyyy" value="${session.date}"/></th>
                         </c:forEach>
-                        <th>Absent</th>
+                    <th>Absent</th>
                 </tr>
                 <c:set var="count" value="0"/>
                 <c:forEach items="${requestScope.listAttendence}" var="attendence">
                     <c:if test="${attendence.session.num == 1}">
                         <tr>
                             <td>${attendence.student.name}(${attendence.student.id})</td>
-                             <c:set var="count" value="0"/>
-                    </c:if>
-                    
-                    <c:if test="${attendence.session.num != 30}">
-                        <c:if test="${attendence.status==1}">
-                            <td style="color:green;">V</td>
+                            <c:set var="count" value="0"/>
                         </c:if>
-                        <c:if test="${attendence.status==0 && attendence.session.status == true}">
-                            <td style="color:red;">X</td>
-                             <c:set var="count" value="${count+1}"/>
-                        </c:if>
-                        <c:if test="${attendence.status==0 && attendence.session.status == false}">
-                            <td>-</td>
-                        </c:if>
-                    </c:if>
 
-                    <c:if test="${attendence.session.num == size}">
-                        <c:if test="${attendence.status==1}">
-                            <td style="color:green;">V</td>
+                        <c:if test="${attendence.session.num != 30}">
+                            <c:if test="${attendence.status==1}">
+                                <td style="color:green;">V</td>
+                            </c:if>
+                            <c:if test="${attendence.status==0 && attendence.session.status == true}">
+                                <td style="color:red;">X</td>
+                                <c:set var="count" value="${count+1}"/>
+                            </c:if>
+                            <c:if test="${attendence.status==0 && attendence.session.status == false}">
+                                <td>-</td>
+                            </c:if>
                         </c:if>
-                        <c:if test="${attendence.status==0 && attendence.session.status == true}">
-                             <td style="color:red;">X</td>
-                            <c:set var="count" value="${count+1}"/>
-                        </c:if>
-                        <c:if test="${attendence.status==0 && attendence.session.status == false}">
-                            <td>-</td>
-                        </c:if>
+
+                        <c:if test="${attendence.session.num == size}">
+                            <c:if test="${attendence.status==1}">
+                                <td style="color:green;">V</td>
+                            </c:if>
+                            <c:if test="${attendence.status==0 && attendence.session.status == true}">
+                                <td style="color:red;">X</td>
+                                <c:set var="count" value="${count+1}"/>
+                            </c:if>
+                            <c:if test="${attendence.status==0 && attendence.session.status == false}">
+                                <td>-</td>
+                            </c:if>
                             <td><fmt:formatNumber value="${count/size}" type="PERCENT"/></td>
                         </tr>
                     </c:if> 

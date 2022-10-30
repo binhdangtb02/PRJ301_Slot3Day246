@@ -45,9 +45,18 @@
         .submit-btn{
             padding: 6px 30px;
         }
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     <body>
+        
         <section class="section">
+               <div class="header">
+            <h1>FPT University Academic Portal</h1>
+            <a href="../auth/logout">log out</a>
+            </div>
             <div class="title">
                 <h1>
                     <c:if test="${requestScope.session.status}">Edit Attendence </c:if> 
@@ -62,6 +71,7 @@
                 </h1>
                 </div>
                 <form action="edit" method="post">
+                    
                     <table >
                         <tr>
                             <th>Num</th>

@@ -29,9 +29,16 @@
         td{
             padding: 4px 6px;
         }
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     <body>
-        <h1>FPT University portal</h1>
+        <div class="header">
+            <h1>FPT University Academic Portal</h1>
+            <a href="../auth/logout">log out</a>
+        </div>
         <h2 class="attendence-title">View Weekly timetable for student ${requestScope.student.name}(${requestScope.student.id})</h2>
 
         <table border="1px">
