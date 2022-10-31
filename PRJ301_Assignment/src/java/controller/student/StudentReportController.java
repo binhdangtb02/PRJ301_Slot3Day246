@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Account;
 import model.Attendence;
 import model.Group;
 import model.Student;
@@ -47,7 +48,8 @@ public class StudentReportController extends BaseAuthorizationController {
     @Override
     protected void processAuthorizationGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String studentId_raw = request.getParameter("studentid");
+         Account account = (Account)request.getSession().getAttribute("account");
+        String studentId_raw = account.getStudent().getId();
         String index_raw = request.getParameter("index");
         int index;
         if (index_raw == null) {

@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Account;
 import model.Attendence;
 import model.Group;
 import model.Lecture;
@@ -54,7 +55,8 @@ public class ReportController extends BaseAuthorizationController {
     protected void processAuthorizationGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String lectureCode = request.getParameter("lectureCode");
+         Account account = (Account)request.getSession().getAttribute("account");
+        String lectureCode = account.getLecture().getLectureCode();
         GroupDAO grDAO = new GroupDAO();
         SessionDAO sesDAO = new SessionDAO();
         AttendenceDAO  attDAO =  new AttendenceDAO();

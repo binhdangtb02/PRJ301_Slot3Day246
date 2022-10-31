@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
@@ -58,6 +58,15 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Account account = (Account) request.getSession().getAttribute("account");
+        if (account != null) {
+            if (account.getStudent() != null) {
+                request.getRequestDispatcher("../view/home/student.jsp").forward(request, response);
+            }
+            if (account.getLecture() != null) {
+                request.getRequestDispatcher("../view/home/lecture.jsp").forward(request, response);
+            }
+        }
         request.getRequestDispatcher("../view/home/login.jsp").forward(request, response);
     }
 
@@ -76,17 +85,15 @@ public class LoginController extends HttpServlet {
         String pass = request.getParameter("pass");
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccount(user, pass);
-        if(account != null){
+        if (account != null) {
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            if(account.getStudent() != null){
+            if (account.getStudent() != null) {
                 request.getRequestDispatcher("../view/home/student.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("../view/home/lecture.jsp").forward(request, response);
             }
-            else{
-               request.getRequestDispatcher("../view/home/lecture.jsp").forward(request, response);
-            }
-        }
-        else{
+        } else {
             String error = "Incorrect username or password";
             request.setAttribute("error", error);
             request.setAttribute("user", user);

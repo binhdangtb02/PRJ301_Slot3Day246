@@ -16,7 +16,24 @@ import model.Session;
  * @author Dell
  */
 public class SessionDAO extends DBContext {
-
+    public Session getSessionByLectureCodeAndSessionId(String lectureCode, String sessionid){
+        String sql_select_session = "SELECT * FROM Session where sessionid = ?  and lectureCode = ?";
+        try{
+            PreparedStatement st_select_session =  connection.prepareStatement(sql_select_session);
+            st_select_session.setString(1, sessionid);
+            st_select_session.setString(2, lectureCode);
+            ResultSet rs_select_session = st_select_session.executeQuery();
+            if(rs_select_session.next()){
+                Session session = new Session();
+                session.setSessionid(rs_select_session.getInt("sessionid"));
+                return session;
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
     public ArrayList<Session> getSesByGroupIdAndLectureCode(String groupId, String lectureCode) {
         ArrayList<Session> sessions = new ArrayList<>();
         String sql = "SELECT g.groupId, g.groupName, g.subjectCode, g.lectureCode,s.sessionid ,s.timeSlot, s.date, s.room, s.num, ISNULL(s.[status],0) [status]\n"
@@ -106,5 +123,9 @@ public class SessionDAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    public static void main(String[] args) {
+        SessionDAO sessionDAO = new SessionDAO();
+        System.out.println(sessionDAO.getSessionByLectureCodeAndSessionId("sonnt", "1"));
     }
 }

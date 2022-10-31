@@ -55,7 +55,10 @@
         <section class="section">
                <div class="header">
             <h1>FPT University Academic Portal</h1>
-            <a href="../auth/logout">log out</a>
+            <div>
+            <a style="margin: 0px 10px;" href="../auth/logout">Log Out</a>
+            <a href="../auth/login">Back To Home</a>
+            </div>
             </div>
             <div class="title">
                 <h1>

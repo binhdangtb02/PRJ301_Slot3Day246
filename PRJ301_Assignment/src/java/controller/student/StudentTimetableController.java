@@ -25,6 +25,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javafx.util.converter.LocalDateTimeStringConverter;
+import model.Account;
 import model.Attendence;
 import model.Student;
 
@@ -57,7 +58,8 @@ public class StudentTimetableController extends BaseAuthorizationController {
     @Override
     protected void processAuthorizationGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {  
-        String id = request.getParameter("studentid");
+        Account account = (Account)request.getSession().getAttribute("account");
+        String id = account.getStudent().getId();
         String year_raw = request.getParameter("year");
         String week_raw = request.getParameter("week");
         StudentDAO stDAO = new StudentDAO();

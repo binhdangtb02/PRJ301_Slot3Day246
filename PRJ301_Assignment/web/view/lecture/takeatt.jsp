@@ -56,7 +56,10 @@
     <body>
         <div class="header">
             <h1>FPT University Academic Portal</h1>
-            <a href="../auth/logout">log out</a>
+            <div>
+                <a style="margin: 0px 10px;" href="../auth/logout">Log Out</a>
+                <a href="../auth/login">Back To Home</a>
+            </div>
         </div>
         <h1 class="main-title">Take Attendence for students</h1>
         <h1>Lecturer: ${requestScope.lecture.lectureName}</h1>
@@ -64,7 +67,7 @@
             <div>
                 <ul class="links-container">
                     <c:forEach items="${requestScope.groups}" var="group">
-                        <li class="link"><a href="takeatt?lectureCode=${requestScope.lectureCode}&groupId=${group.key.groupId}">${group.key.groupName} -  ${group.key.subject.subjectName}(${group.value})</a></li>
+                        <li class="link"><a href="takeatt?groupId=${group.key.groupId}">${group.key.groupName} -  ${group.key.subject.subjectName}(${group.value})</a></li>
                         </c:forEach>
                 </ul>
             </div>

@@ -64,7 +64,10 @@
         <section class="section">
             <div class="header">
                 <h1>FPT University Academic Portal</h1>
-                <a href="../auth/logout">log out</a>
+                <div>
+            <a style="margin: 0px 10px;" href="../auth/logout">Log Out</a>
+            <a href="../auth/login">Back To Home</a>
+            </div>
             </div>
             <div class="title">
                 <h1>Attendence report for lecture</h1>
@@ -77,7 +80,7 @@
                             <li class="link">
                                 <a 
                                     <c:if test="${group.groupId == requestScope.groupId}">class="active"</c:if>
-                                    href="report?groupId=${group.groupId}&&lectureCode=${requestScope.lecture.lectureCode}">
+                                    href="report?groupId=${group.groupId}">
                                     ${group.groupName} -  ${group.subject.subjectName}(${group.subject.subjectCode})
                                 </a>
                             </li>

@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
+import model.Account;
 import model.Group;
 import model.Lecture;
 import model.Session;
@@ -49,13 +50,11 @@ public class TakeAttendence extends BaseAuthorizationController {
     @Override
     protected void processAuthorizationGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String lectureCode = request.getParameter("lectureCode");
-        TeacherDAO teDAO = new TeacherDAO();
+        Account account = (Account)request.getSession().getAttribute("account");
+        String lectureCode = account.getLecture().getLectureCode();
         GroupDAO grDAO = new GroupDAO();
         SessionDAO sesDAO = new SessionDAO();
         HashMap<Group, Integer> groups = grDAO.getGroupsByLectureCode(lectureCode);
-        Lecture lecture = teDAO.getLectureById(lectureCode);
-        request.setAttribute("lecture", lecture);
         request.setAttribute("groups", groups);
         String groupId =  request.getParameter("groupId");
         request.setAttribute("lectureCode", lectureCode);

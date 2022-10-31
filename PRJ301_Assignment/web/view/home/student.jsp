@@ -47,10 +47,10 @@
             </h2>
             <ul>
                 <li>
-                    <a href="../student/timetable?studentid=${sessionScope.account.student.id}">View weekly timetable</a>
+                    <a href="../student/timetable">View weekly timetable</a>
                 </li>
                 <li>
-                    <a href="../student/report?studentid=${sessionScope.account.student.id}">View attendence report</a>
+                    <a href="../student/report">View attendence report</a>
                 </li>
             </ul>
         </section>

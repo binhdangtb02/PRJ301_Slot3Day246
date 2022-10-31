@@ -30,7 +30,7 @@
             padding: 2px 4px;
         }
     </style>
-    <body>
+    <body> 
         <div class="error">
             <h1 style="color: red">${requestScope.error}</h1>
         </div>
