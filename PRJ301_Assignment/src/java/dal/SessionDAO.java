@@ -4,9 +4,11 @@
  */
 package dal;
 
+import helper.DateTimeHelper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Group;
 import model.Session;
@@ -16,6 +18,39 @@ import model.Session;
  * @author Dell
  */
 public class SessionDAO extends DBContext {
+       public ArrayList<Session> getLectureWeeklyTimetable(String lectureCode, String from, String to) {
+        ArrayList<Session> listSession = new ArrayList<>();
+        String sql = "SELECT l.lectureCode, l.lectureName, l.dob, l.gender, l.[image], s.sessionid,\n"
+                + "s.num, s.groupId, s.[date], s.timeSlot, s.room, ISNULL(s.[status],0) [status]\n"
+                + "FROM Lecture l\n"
+                + "INNER JOIN [Session] s on s.lectureCode = l.lectureCode\n"
+                + "where l.lectureCode = ? and s.date >= ? and s.date<= ?";
+        try{
+            PreparedStatement st_select_session =  connection.prepareStatement(sql);
+            st_select_session.setString(1, lectureCode);
+            st_select_session.setDate(2, DateTimeHelper.getDate(from));
+            st_select_session.setDate(3, DateTimeHelper.getDate(to));
+            ResultSet rs_select_session =  st_select_session.executeQuery();
+            while(rs_select_session.next()){
+                Session session = new Session();
+                GroupDAO grDAO = new GroupDAO();
+                session.setDate(rs_select_session.getDate("date"));
+                session.setGroup(grDAO.getGroup(rs_select_session.getInt("groupId")));
+                session.setNum(rs_select_session.getInt("num"));
+                session.setRoom(rs_select_session.getString("room"));
+                session.setSessionid(rs_select_session.getInt("sessionId"));
+                session.setTimeSlot(rs_select_session.getInt("timeSlot"));
+                session.setStatus(rs_select_session.getBoolean("status"));
+                session.setLectureCode(rs_select_session.getString("lectureCode"));
+                listSession.add(session);
+            }
+            return listSession;
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+       
     public Session getSessionByLectureCodeAndSessionId(String lectureCode, String sessionid){
         String sql_select_session = "SELECT * FROM Session where sessionid = ?  and lectureCode = ?";
         try{
@@ -127,5 +162,9 @@ public class SessionDAO extends DBContext {
     public static void main(String[] args) {
         SessionDAO sessionDAO = new SessionDAO();
         System.out.println(sessionDAO.getSessionByLectureCodeAndSessionId("sonnt", "1"));
+        LocalDate localdate= LocalDate.now();
+        LocalDate localdate2 = localdate.plusDays(6);
+        System.out.println(localdate.toString());
+        System.out.println(sessionDAO.getLectureWeeklyTimetable("sonnt","2022-10-10", "2022-10-20"));
     }
 }

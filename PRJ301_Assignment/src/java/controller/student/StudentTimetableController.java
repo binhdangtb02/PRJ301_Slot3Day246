@@ -116,7 +116,7 @@ public class StudentTimetableController extends BaseAuthorizationController {
             sqlWeek.add(DateTimeHelper.getSqlDate(i));
         }
         Student student = stDAO.getStudentById(id);
-        ArrayList<Attendence> weeklyTimetable = attDAO.getWeeklyTimetable(id, from, to);
+        ArrayList<Attendence> weeklyTimetable = attDAO.getStudentWeeklyTimetable(id, from, to);
         request.setAttribute("weeksOfYear", weeksOfYear);
         request.setAttribute("weeks", weeks);
         request.setAttribute("student", student);

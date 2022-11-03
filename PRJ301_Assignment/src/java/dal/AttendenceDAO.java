@@ -23,7 +23,9 @@ import model.Subject;
  */
 public class AttendenceDAO extends DBContext {
 
-    public ArrayList<Attendence> getWeeklyTimetable(String studentId, String from, String to) {
+ 
+
+    public ArrayList<Attendence> getStudentWeeklyTimetable(String studentId, String from, String to) {
         ArrayList<Attendence> listAttendence = new ArrayList<>();
 
         try {
@@ -36,19 +38,19 @@ public class AttendenceDAO extends DBContext {
                     + "  FROM Student s INNER JOIN StudentInGroup sg on s.id = sg.studentId\n"
                     + "  INNER JOIN [Group] g on g.groupId = sg.groupId\n"
                     + "  INNER JOIN [Session] ses on ses.groupId = g.groupId \n"
-                    + "  LEFT JOIN Attendence a on a.sessionId = ses.sessionid\n"
-                    + "  where  s.id = ? and (a.studentId = ? OR a.studentId IS NULL) "
+                    + "  LEFT JOIN Attendence a on a.sessionId = ses.sessionid and a.studentId = s.id\n"
+                    + "  where  s.id = ?"
                     + " AND ses.date >= ? AND ses.date <= ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, studentId);
-            st.setString(2, studentId);
-            st.setDate(3, DateTimeHelper.getDate(from));
-            st.setDate(4, DateTimeHelper.getDate(to));
+
+            st.setDate(2, DateTimeHelper.getDate(from));
+            st.setDate(3, DateTimeHelper.getDate(to));
 
             ResultSet rs = st.executeQuery();
             GroupDAO grDAO = new GroupDAO();
             while (rs.next()) {
-                
+
                 Group group = grDAO.getGroup(rs.getInt("groupId"));
                 int timeSlot = rs.getInt("timeSlot");
                 Date date = rs.getDate("date");
@@ -108,8 +110,8 @@ public class AttendenceDAO extends DBContext {
         }
         return listAttendence;
     }
-    
-     public ArrayList<Attendence> getAttendenceByGroupId(String groupId) {
+
+    public ArrayList<Attendence> getAttendenceByGroupId(String groupId) {
         ArrayList<Attendence> listAttendence = new ArrayList<>();
         String sql_get_attendence = "SELECT s.id studentId, s.[name] studentName, g.groupName, l.lectureCode, l.lectureName, su.subjectCode, su.subjectName, ses.sessionid, ses.[date],\n"
                 + "                ses.room, ISNULL(ses.[status],0) present, ses.timeSlot,ses.num, ISNULL(a.[status], 0) [status], ISNULL(a.[description],'' ) [description]\n"
@@ -162,7 +164,8 @@ public class AttendenceDAO extends DBContext {
         }
         return null;
     }
-     public ArrayList<Attendence> getAttendenceBySessionId(String sessionid) {
+
+    public ArrayList<Attendence> getAttendenceBySessionId(String sessionid) {
         ArrayList<Attendence> listAttendence = new ArrayList<>();
         String sql = "  SELECT stu.id, stu.name,stu.image, stu.gender,g.groupId, g.groupName, g.lectureCode, g.lectureCode, "
                 + "     s.sessionid, s.room,s.date, s.num,s.timeSlot,\n"
@@ -201,8 +204,8 @@ public class AttendenceDAO extends DBContext {
         }
         return null;
     }
-     
-      public void insertAttendence(String sessionid, ArrayList<Attendence> listAttendence) {
+
+    public void insertAttendence(String sessionid, ArrayList<Attendence> listAttendence) {
         try {
             connection.setAutoCommit(false);
             String sql_update_session = "UPDATE Session set status = 1 where sessionid = ?";
