@@ -52,6 +52,9 @@
                 <li>
                     <a href="../lecture/takeatt">Take Attendence</a>
                 </li>
+                 <li>
+                    <a href="../lecture/timetable">View weekly timetable</a>
+                </li>
             </ul>
         </section>
     </body>
