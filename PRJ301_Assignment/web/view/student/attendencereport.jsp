@@ -86,7 +86,7 @@
                                 href="report?index=${loop.index}"
                                 class="<c:if test="${requestScope.index == loop.index}">active</c:if>"
                                     >
-                                ${g.subject.subjectName}
+                                ${g.subject.subjectName}<span style="text-transform: uppercase; ">(${g.groupName})</span>
 
                             </a>
                         </li>

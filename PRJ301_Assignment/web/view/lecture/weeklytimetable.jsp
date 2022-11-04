@@ -53,7 +53,7 @@
 
                 <th rowspan="2">
                     <form action="timetable" id="date-form">
-                        
+
                         YEAR: <select name="year"  onchange="submitForm()">
                             <c:forEach begin="${requestScope.year-3}" end="${requestScope.year+1}" var="i">
                                 <option value="${i}" <c:if test="${requestScope.year == i}">selected</c:if>>${i}</option>
@@ -97,11 +97,17 @@
                     <c:forEach items="${sqlWeek}" var="day">
                         <c:set value="true" var="check"/>
                         <c:forEach items="${requestScope.weeklyTimetable}" var="session">
-                           
+
 
                             <c:if test="${session.timeSlot == slot && day.compareTo(session.date) == 0}">
+
                                 <td>
-                                   ok
+                                    ${session.group.subject.subjectCode} at ${session.room}<br/>
+                                    <c:if test="${session.status ==true}"><span style="color:green;">Attended</span></c:if>
+                                    <c:if test="${session.status==false}"><span style="color:black">future</span></c:if>
+
+                                    <c:set value="false" var="check"/>
+
                                 </td>
                                 <c:set value="false" var="check"/>
                             </c:if>
