@@ -62,7 +62,7 @@
             </div>
         </div>
         <h1 class="main-title">Take Attendence for students</h1>
-        <h1>Lecturer: ${requestScope.lecture.lectureName}</h1>
+        <h1>Lecturer: ${sessionScope.account.lecture.lectureName}</h1>
         <section class="section">
             <div>
                 <ul class="links-container">

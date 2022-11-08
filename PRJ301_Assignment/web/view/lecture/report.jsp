@@ -71,7 +71,7 @@
             </div>
             <div class="title">
                 <h1>Attendence report for lecture</h1>
-                <h1>Lecturer: ${requestScope.lecture.lectureName}</h1>
+                <h1>Lecturer: ${sessionScope.account.lecture.lectureName}</h1>
             </div>
             <div class="main-content">
                 <div>

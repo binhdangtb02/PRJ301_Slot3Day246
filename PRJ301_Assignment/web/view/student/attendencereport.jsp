@@ -114,9 +114,9 @@
                             <td>${attendence.session.group.subject.subjectCode}</td>
                             <td>${attendence.session.lecture}</td>
                             <td>
-                                <c:if test="${attendence.status ==1}">Attended</c:if>
-                                <c:if test="${attendence.status==0}">Absent</c:if>
-                                <c:if test="${attendence.status==-1}">Future</c:if>
+                                <c:if test="${attendence.status ==1}"><span style="color:green;">Attended</span></c:if>
+                                <c:if test="${attendence.status==0}"><span style="color:red;">Absent</span></c:if>
+                                <c:if test="${attendence.status==-1}"><span style="color:black;">Future</span></c:if>
                                 </td>
                             </tr>
                     </c:forEach>    
