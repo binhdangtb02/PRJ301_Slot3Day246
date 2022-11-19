@@ -3,7 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/lecture/weeklytimetable.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/lecture/takeatt.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/student/StudentTimetableController.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/student/attendencereport.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/lecture/EditAttendence.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/auth/LoginController.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/lecture/ReportController.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/student/weeklytimetable.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/home/student.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/auth/BaseAuthorizationController.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/auth/LogoutController.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/student/StudentReportController.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/AttendenceDAO.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/dal/GroupDAO.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/lecture/TakeAttendence.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/auth/BaseAuthenticationController.java</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/src/java/controller/lecture/TimetableController.java</file>
             <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/lecture/editatt.jsp</file>
+            <file>file:/C:/Users/Dell/Documents/GitHub/PRJ301_Slot3Day246/PRJ301_Assignment/web/view/lecture/report.jsp</file>
         </group>
     </open-files>
 </project-private>
